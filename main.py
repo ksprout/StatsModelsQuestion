@@ -1,12 +1,13 @@
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+import itertools
 
 def main():
     df = pd.read_table("https://web.stanford.edu/~hastie/Papers/LARS/diabetes.data")
 
-    X = df.iloc[:,0:10]
-    y = df.iloc[:,10]
+    X = df.drop('Y', 1)
+    y = df['Y']
     [length, column_number] = np.shape(X)
 
     print('正規化しない場合')
