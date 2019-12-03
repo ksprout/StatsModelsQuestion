@@ -7,11 +7,15 @@ def main():
 
     X = df.iloc[:,0:10]
     y = df.iloc[:,10]
-    normed_X = norm(X, X.describe().transpose())
-    #normed_X = X
-    [length, column_number] = np.shape(normed_X)
-    X2 = sm.add_constant(normed_X)
-    
+    [length, column_number] = np.shape(X)
+
+    print('正規化しない場合')
+    fit(X, y)
+    print('正規化した場合')
+    fit(norm(X, X.describe().transpose()), y)
+
+def fit(x, y):
+    X2 = sm.add_constant(x)
     model = sm.OLS(y, X2)
     result = model.fit()
     print(result.summary())
